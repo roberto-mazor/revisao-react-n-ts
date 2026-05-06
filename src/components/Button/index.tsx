@@ -1,10 +1,24 @@
-import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native"
+import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native";
+import {style} from "./style";
 
-export default function Button({valor}) {
+
+type Props = TouchableOpacityProps & {
+    valor: string,
+    isAtivado:boolean,
+}
+
+export default function Button({valor, isAtivado, ...rest}: Props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity
+        {...rest}
+            style={
+                isAtivado === true 
+                ? [style.button, style.buttonAtivo] 
+                : [style.button, style.buttonDesativado]
+            }
+        >
             <Text
-                style={[{ fontSize: 32 }]}
+                style={style.textoButton}
             >{valor !== '' ? valor : "Não Informado"}</Text>
         </TouchableOpacity>
     )
