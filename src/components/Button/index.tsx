@@ -1,11 +1,35 @@
-import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native"
+import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native";
+import { style } from "./style";
 
-export default function Button({valor}) {
+type Props = TouchableOpacityProps & {
+    text: string,
+    idButton: number,
+    isAtivado: boolean
+}
+
+export default function Button({ text, idButton, isAtivado, ...rest }: Props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity
+        {...rest}
+            activeOpacity={0.4}
+            // style={isAtivado === true
+            //     ? [{ backgroundColor: 'red' }]
+            //     : [{ backgroundColor: 'green' }]}
+            style={
+                isAtivado === true
+                ? [style.button, style.buttonAtivo]
+                : [style.button, style.buttonDesativado]
+            }
+
+
+
+            // style={style.button}
+        >
             <Text
-                style={[{ fontSize: 32 }]}
-            >{valor !== '' ? valor : "Não Informado"}</Text>
-        </TouchableOpacity>
+                style={style.textoButton}
+            >
+                {text !== '' ? idButton + ' ' + text : "Botão desconfigurado!"}
+            </Text>
+        </TouchableOpacity >
     )
 }
